@@ -1,2 +1,5 @@
 # CMPE252-ChatBot-Project-Team-7
-#Phil Shirts -- contributor.
+
+## Team Members (Add Name Here)
+* Karl Gendler -- contributor.
+* Phil Shirts -- contributor.
