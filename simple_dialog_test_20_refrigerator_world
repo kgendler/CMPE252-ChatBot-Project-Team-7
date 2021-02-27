@@ -12,6 +12,7 @@ trainer.train([
     'It is in the refrigerator, on the left side.',
     'Thank you.',
 ])
+
 trainer.train([
     'Where is the milk?',
     'Regular or Non-Fat?',
@@ -19,6 +20,7 @@ trainer.train([
     'I’m not sure.  Maybe there is some in the freezer.',
     'Thank you.',
 ])
+
 trainer.train([
     'Where is the Regular milk?',
     'There should be some in the refrigerator.',
@@ -26,6 +28,7 @@ trainer.train([
     'Did you look on the right side?',
     'No.  I will. Thanks.',
 ])
+
 trainer.train([
     'Where is the Non-Fat milk?',
     'I think we are out.  Should I order some?',
@@ -33,36 +36,42 @@ trainer.train([
     'Ok.  I will ask them to deliver it today.',
     'Thanks.',
 ])
+
 trainer.train([
-    ‘Do we have any Non-Fat milk?',
+    'Do we have any Non-Fat milk?',
     'We have powdered Non-Fat milk in the garage.',
     'Is there any in the refrigerator?',
     'No. Just in the garage.',
     'Thanks.',
 ])
 trainer.train([
-    ‘What do we have in the refrigerator to eat?',
+    'What do we have in the refrigerator to eat?',
     'Milk, eggs and bacon.',
     'What kind of milk',
     'Regular.',
     'Ok. Thanks.',
 ])
 trainer.train([
-    ‘Are we out of bacon?',
+    'Are we out of bacon?',
     'Did you look in the refrigerator?',
     'Yes, but I didn’t see any.',
     'Did you look behind the milk?',
     'Oh, there it is. Thanks.',
 ])
+
+
+
+
+
 trainer.train([
-    ‘Do we have any hard boiled eggs?',
+    'Do we have any hard boiled eggs?',
     'Yes, in the refrigerator?',
     'I don’t see them.',
     'Did you look behind the milk?',
     'Oh, there it is. Thanks.',
 ])
 trainer.train([
-    ‘Do we have any uncooked eggs?',
+    'Do we have any uncooked eggs?',
     'What kind?',
     'Brown eggs.',
     'No.  We don’t have any brown eggs?',
@@ -72,7 +81,7 @@ trainer.train([
 
 ])
 trainer.train([
-    ‘Do we have any uncooked eggs?',
+    'Do we have any uncooked eggs?',
     'What kind?',
     'Any kind.',
     'Look behind the milk.',
@@ -80,17 +89,19 @@ trainer.train([
     'What would you do without me?',
     'I don’t know.'
 ])
+
 trainer.train([
-    ‘Who ate all of the eggs?',
+    'Who ate all of the eggs?',
     'We have eggs.',
     'Where?',
     'Did you look behind the milk.',
     'Oh, there it is.  Thank you.'
     'What would you do without me?',
-    'I don’t know.’
+    'I don’t know. '
 ])
+
 trainer.train([
-    ‘Do we have any bacon left',
+    'Do we have any bacon left',
     'Did you look behind the milk?',
     'No.  I don’t need to look behind the milk.',
     'Please, look behind the milk.',
@@ -98,8 +109,9 @@ trainer.train([
     'Try looking behind the milk before you ask me, next time.'
     'Ok.  Geez, don’t have a cow about it.'
 ])
+
 trainer.train([
-    ‘Do we have any milk?',
+    'Do we have any milk?',
     'Did you look behind the milk?',
     'No.',
     'Please, look behind the milk.',
@@ -107,16 +119,18 @@ trainer.train([
     'I guess we are out of milk, then.'
     'I guess so.'
 ])
+
 trainer.train([
-    ‘Where is the chocolate milk.,
-    'We don’t have chocolate milk, only regular or non-fat milk?',
-    'Where is the regular milk.',
+    'Where is the chocolate milk? ',
+    'We don’t have chocolate milk, only regular or non-fat milk.',
+    'Where is the regular milk?',
     'In the refrigerator.',
-    'It is in front of the bacon.'
+    'It is in front of the bacon.',
     'I see it.  Thanks'
 ])
+
 trainer.train([
-    ‘Do we have any frozen pizza?',
+    'Do we have any frozen pizza?',
     'No.  You ate it all.',
     'Are you sure?',
     'Yes, I am sure.',
@@ -124,8 +138,9 @@ trainer.train([
     'Yes, I am really sure.  Go do your homework.'
     'Ok.  You don’t have to be rude about it.'
 ])
+
 trainer.train([
-    ‘Where should I put the milk?',
+    'Where should I put the milk?',
     'In the refrigerator.',
     'Where in the refrigerator?',
     'Put the milk in front of the eggs, or in front of the bacon.',
@@ -133,8 +148,9 @@ trainer.train([
     'Is there anything else in the refrigerator?'
     'No, just eggs, milk and bacon.'
 ])
+
 trainer.train([
-    ‘Do we have any deviled eggs?',
+    'Do we have any deviled eggs?',
     'No, we only have raw or hard-boiled eggs.',
     'Why don’t we have any devilled eggs?',
     'I don’t know.  You can make some yourself if you want them.',
@@ -142,26 +158,31 @@ trainer.train([
     'Then no devilled-eggs for you.'
     'Ok.'
 ])
+
 trainer.train([
-    ‘I am hungry',
+    'I am hungry',
     'Why don’t you get some food out of the refrigerator.',
     'I only see milk in the refrigerator.',
-    'Are you sure?.',
+    'Are you sure?',
     'Yes.  I am sure.'
     'Did you look behind the milk?'
     'Oh, now I see.  We also have bacon and eggs.'
 ])
+
 trainer.train([
-    ‘Does the refrigerator light stay on after I close the door?',
-    ‘I don’t know.',
+    'Does the refrigerator light stay on after I close the door?',
+    'I don’t know.',
     'Why not?',
     'Because I have never been inside the refrigerator when the door was closed.',
     'Why not?'
     'Because it is dangerous.?'
     'Ok.'
 ])
+
+
+
 trainer.train([
-    ‘How many eggs do we have in the refrigerator?',
+    'How many eggs do we have in the refrigerator?',
     'We should have 12 eggs.',
     'I don’t see any',
     'Look behind the milk.',
