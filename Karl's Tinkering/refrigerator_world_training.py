@@ -129,23 +129,25 @@ conversations = [[
 ],
 [
     'Does the refrigerator light stay on after I close the door?',
-    'I don’t know.',
-    'Why not?',
-    'Because I have never been inside the refrigerator when the door was closed.',
+    'I don’t know, I have never been inside the refrigerator when the door was closed.',
     'Why not?',
     'Because it is dangerous.'  # Bot replies with "Because I have never been inside the refigerator when the door was closed."
 ],
 [
-    'How many much do we have in the refrigerator?',
-    'count',
+    'What is the status of my order',
+    'orderstatus'
 ],
 [
-    'What is the status of my order?',
-    'order status'
+    'Reschedule my order',
+    'modifyorder',
 ],
 [
-    "I'd like to reschedule my order.",
-    'reschedule',
+    'Schedule an order',
+    'createorder'
+],
+[
+    'Cancel the order',
+    'deleteorder'
 ]
 ]
 
@@ -153,7 +155,6 @@ class Order(object):
     def __init__(self, item, quantity, address, delivery_time):
         self.item = item
         self.quantity = quantity
-        self.address = address
         self.delivery_time = delivery_time
 
 class FridgeBot(ChatBot):
@@ -192,11 +193,11 @@ class FridgeBot(ChatBot):
         elif item == 'bacon':
             self.bacon += amount
     
-    def createOrder(self, item, quantity, address, delivery_time):
+    def createOrder(self, item, quantity, delivery_time):
         """Add an order for an item.
 
         In the future, can append new order to a list, add other functionality to handle multiple orders."""
-        self.order = Order(item, quantity, address, deliver_time)
+        self.order = Order(item, quantity, deliver_time)
 
     def logInput(self, user_input):
         """Add to the list of the last up to 10 user inputs"""
