@@ -1,3 +1,6 @@
+from chatterbot import ChatBot
+from random import randrange
+
 conversations = [[
     'Where is the milk?',
     'Regular or Non-Fat?',
@@ -133,12 +136,82 @@ conversations = [[
     'Because it is dangerous.'  # Bot replies with "Because I have never been inside the refigerator when the door was closed."
 ],
 [
-    'How many eggs do we have in the refrigerator?',
-    'We should have 12 eggs.',
-    'I don’t see any',
-    'Look behind the milk.',  # Bot replied with "What kind of movies do you like?"
-    'I only see bacon behind the milk.',
-    'Look behind the bacon.'
+    'How many much do we have in the refrigerator?',
+    'count',
+],
+[
+    'What is the status of my order?',
+    'order status'
+],
+[
+    "I'd like to reschedule my order.",
+    'reschedule',
 ]
 ]
 
+class Order(object):
+    def __init__(self, item, quantity, address, delivery_time):
+        self.item = item
+        self.quantity = quantity
+        self.address = address
+        self.delivery_time = delivery_time
+
+class FridgeBot(ChatBot):
+    def __init__(self, name, **kwargs):
+        super().__init__(name, **kwargs)
+        self.order = None
+        self.milk = randrange(1,2)
+        self.eggs = randrange(1,24)
+        self.bacon = randrange(1,5)
+
+        self.inputs = []
+        self.best_matches = []
+        self.outputs = []
+
+    def consume(self, item, amount):
+        """Remove an amount of milk, eggs, or bacon from the fridge."""
+        if item == 'milk':
+            self.milk -= amount
+            if self.milk < 0:
+                self.milk == 0
+        elif item == 'eggs':
+            self.eggs -= amount
+            if self.eggs < 0:
+                self.eggs == 0
+        elif item == 'bacon':
+            self.bacon -= amount
+            if self.bacon < 0:
+                self.bacon == 0
+    
+    def store(self, item, amount):
+        """Add an amount of milk, eggs, or bacon to the fridge."""
+        if item == 'milk':
+            self.milk += amount
+        elif item == 'eggs':
+            self.eggs += amount
+        elif item == 'bacon':
+            self.bacon += amount
+    
+    def createOrder(self, item, quantity, address, delivery_time):
+        """Add an order for an item.
+
+        In the future, can append new order to a list, add other functionality to handle multiple orders."""
+        self.order = Order(item, quantity, address, deliver_time)
+
+    def logInput(self, user_input):
+        """Add to the list of the last up to 10 user inputs"""
+        self.inputs.append(user_input)
+        if len(self.inputs) > 10:
+            self.inputs = self.inputs[:10]
+    
+    def logBestMatch(self, best_match):
+        """Add to the list of the last up to 10 best matches to the user inputs"""
+        self.best_matches.append(best_match)
+        if len(self.best_matches) > 10:
+            self.best_matches = self.best_matches[:10]
+
+    def logOutput(self, output):
+        """Add to the list of the last up to 10 bot outputs"""
+        self.outputs.append(output)
+        if len(self.outputs) > 10:
+            self.outputs = self.outputs[:10]
