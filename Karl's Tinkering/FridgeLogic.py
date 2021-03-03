@@ -1,3 +1,4 @@
+from chatterbot import filters
 from chatterbot.comparisons import LevenshteinDistance, JaccardSimilarity, SynsetDistance
 from chatterbot.conversation import Statement
 from chatterbot.logic import LogicAdapter, BestMatch
@@ -23,13 +24,11 @@ class PreviousInputLogic(LogicAdapter):
 
         # These are classes so need to instantiate them before using their compare method
         LevDist = LevenshteinDistance()
-        JacSim = JaccardSimilarity()
         SynDist = SynsetDistance()
 
         # These will store max values found so far as we iterate through our trained conversations
         # This definitely feels like cheating.
         LevDist_max = 0
-        JacSim_max = 0
         SynDist_max = 0
 
         # Iterate through the conversations and entries in each, tracking the best match
@@ -50,13 +49,6 @@ class PreviousInputLogic(LogicAdapter):
                     LevDist_max = LD
                     LD_statement = Statement(conversation[i+3])
 
-                #JS = JacSim.compare(self.previous_input, statement)
-                #if JS > JacSim_max:
-                    #if JacSim.compare(Statement(conversation[i+2]), input_statement) > 0.9:
-                        #JS += (1 - JS)/2  # give 50% boost over competition if current statment is a good match in the right position in the same conversation
-                    #JacSim_max = JS
-                    #JS_statement = Statement(conversation[i+3])
-
                 SD = SynDist.compare(self.previous_input, statement)
                 if SD > SynDist_max:
                     if SynDist.compare(Statement(conversation[i+2]), input_statement) > 0.9:
@@ -67,15 +59,11 @@ class PreviousInputLogic(LogicAdapter):
         # Having calculated the maximum confidences for each method, determine the winner and output that Statement object
         # Note that output here doesn't mean it'll be the final chosen output of the bot. Bot will compare confidence from
         # this and any other logic adapters and choose the output with the highest confidence.
-        if LevDist_max > JacSim_max and LevDist_max > SynDist_max:
+        if LevDist_max > SynDist_max:
             output = LD_statement
             output.confidence = LevDist_max
 
-        elif JacSim_max > LevDist_max and JacSim_max > SynDist_max:
-            output = JS_statement
-            output.confidence = JacSim_max
-
-        elif SynDist_max > LevDist_max and SynDist_max > JacSim_max:
+        elif SynDist_max > LevDist_max:
             output = SD_statement
             output.confidence = SynDist_max
 
@@ -84,14 +72,32 @@ class PreviousInputLogic(LogicAdapter):
             output.confidence = 0.1
         
         return output
-        
+
+
+class TestLogic(LogicAdapter):
+
+    def __init__(self, chatbot, **kwargs):
+        super().__init__(chatbot, **kwargs)
+
+    def can_process(self, statement):
+        print(statement.conversation)
+        recent_repeated_responses = filters.get_recent_repeated_responses(
+            self.chatbot,
+            statement.conversation
+        )
+        print(recent_repeated_responses)
+        statements_in_db = list(self.chatbot.storage.filter())
+        for statement_in_db in statements_in_db:
+            print(statement_in_db.conversation)
+        return False
+
 
 if __name__ == '__main__':
     from chatterbot import ChatBot
     from chatterbot.trainers import ListTrainer, ChatterBotCorpusTrainer
-    testbot = ChatBot('Test', logic_adapters=['FridgeLogic.PreviousInputLogic', 'chatterbot.logic.BestMatch'])
-    trainer = ChatterBotCorpusTrainer(testbot)
-    trainer.train('chatterbot.corpus.english.greetings')
+    testbot = ChatBot('Test', logic_adapters=['FridgeLogic.TestLogic', 'chatterbot.logic.BestMatch'])
+    #trainer = ChatterBotCorpusTrainer(testbot)
+    #trainer.train('chatterbot.corpus.english.greetings')
     trainer = ListTrainer(testbot)
     for conversation in conversations:
         trainer.train(conversation)
