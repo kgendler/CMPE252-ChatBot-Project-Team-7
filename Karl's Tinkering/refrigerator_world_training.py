@@ -152,7 +152,7 @@ conversations = [[
 ]
 
 class Order(object):
-    def __init__(self, item, quantity, address, delivery_time):
+    def __init__(self, item, quantity, delivery_time):
         self.item = item
         self.quantity = quantity
         self.delivery_time = delivery_time
@@ -197,7 +197,7 @@ class FridgeBot(ChatBot):
         """Add an order for an item.
 
         In the future, can append new order to a list, add other functionality to handle multiple orders."""
-        self.order = Order(item, quantity, deliver_time)
+        self.order = Order(item, quantity, delivery_time)
 
     def logInput(self, user_input):
         """Add to the list of the last up to 10 user inputs"""

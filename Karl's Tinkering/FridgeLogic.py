@@ -78,9 +78,9 @@ class PreviousInputLogic(LogicAdapter):
 
 
 class OrderLogic(LogicAdapter):
-    def __init__(self, fridgebot, **kwargs):
-        super().__init__(fridgebot, **kwargs)
-    
+    def __init__(self, chatbot, **kwargs):
+        super().__init__(chatbot, **kwargs)
+
     def can_process(self, statement):
         """Figure out if the statement from the user contains the word "order".
         
@@ -106,20 +106,21 @@ class OrderLogic(LogicAdapter):
         response = response_list[0]
 
         if response.text == 'createorder':
-            item = input('Sounds like you want to place and order. What would you like to order?\n')
+            item = input('Sounds like you want to place an order. What would you like to order?\n')
             quantity = input('What quanitity would you like to order?\n')
             delivery = input('What would you like the order delivered? You can choose morning, afternoon, or evening.\n')
-            self.fridgebot.createOrder(item.lower(), quantity, delivery)
+            self.chatbot.createOrder(item.lower(), quantity, delivery)
             if 'milk' in item.lower():
                 item = 'gallon(s) of milk'
             elif 'bacon' in item.lower():
                 item = 'pound(s) of bacon'
+            else:
+                item = 'egg(s)'
 
             response = Statement('Great! Your order of {} {} will be delivered in the {}.'.format(quantity, item, delivery))
-            response.confidence = 1
 
         elif response.text == 'modifyorder':
-            order = self.fridgebot.order
+            order = self.chatbot.order
             delivery = input('Okay, I see your order for {} coming in the {}. When would you like the order to be delivered? You can choose morning, afternoon, or evening.\n'.format(order.item, order.delivery_time))
             order.delivery_time = delivery
             if 'milk' in order.item:
@@ -129,10 +130,9 @@ class OrderLogic(LogicAdapter):
             else:
                 item = 'egg(s)'
             response = Statement('All set! Your order of {} {} will now be delivered in the {}.'.format(order.quantity, item, delivery))
-            response.confidence = 1
 
         elif response.text == 'orderstatus':
-            order = self.fridgebot.order
+            order = self.chatbot.order
             if not order:
                 response = Statement('You have no pending order.')
             else:
@@ -142,18 +142,18 @@ class OrderLogic(LogicAdapter):
                     item = 'pound(s) of bacon'
                 else:
                     item = 'egg(s)'
-                response = Statement('Your order of {} {} is schedule to be delivered in the {}.'.format(order.quantity, item, order.delivery_time))
+                response = Statement('Your order of {} {} is scheduled to be delivered in the {}.'.format(order.quantity, item, order.delivery_time))
             
         elif response.text == 'deleteorder':
-            order = self.fridgebot.order
+            order = self.chatbot.order
             if not order:
                 response = Statement('You have no pending order.')
             else:
                 item = order.item
-                self.fridgebot.order = None
+                self.chatbot.order = None
                 response = Statement("I've cancelled your order for {}.".format(item))
 
-        response.confidence = 1
+        response.confidence = 1.2
         return response
 
 

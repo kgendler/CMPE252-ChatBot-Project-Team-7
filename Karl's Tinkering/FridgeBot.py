@@ -7,9 +7,9 @@ from refrigerator_world_training import conversations, FridgeBot
 fridge = FridgeBot(
     'FridgeBot',
     logic_adapters=[
-        'chatterbot.logic.BestMatch',
         'FridgeLogic.PreviousInputLogic',
-        'FridgeLogic.OrderLogic'
+        'FridgeLogic.OrderLogic',
+        'chatterbot.logic.BestMatch'
     ]
 )       
 
