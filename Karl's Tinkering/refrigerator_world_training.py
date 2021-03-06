@@ -146,6 +146,10 @@ conversations = [[
     'createorder'
 ],
 [
+    'Place an order',
+    'createorder'
+],
+[
     'Cancel the order',
     'deleteorder'
 ]

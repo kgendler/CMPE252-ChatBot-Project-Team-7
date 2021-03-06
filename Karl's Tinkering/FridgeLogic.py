@@ -71,8 +71,10 @@ class PreviousInputLogic(LogicAdapter):
             output = Statement('Not quite sure how to respond to that...')
             output.confidence = 0.1
         
-        if output.confidence == 1:
-            output.confidence == 0.999
+        if output.confidence > 0.9:
+            output.confidence = 0.9
+        
+        print('PreviousLogicAdapter returning {} with confidence {}'.format(output.text, output.confidence))
 
         return output
 
@@ -96,6 +98,7 @@ class OrderLogic(LogicAdapter):
 
         # Search for the closest match to the input statement
         confidence = 0
+        closest_match = search_results[0]
         for result in search_results:
             if result.confidence > confidence:
                 confidence = result.confidence
