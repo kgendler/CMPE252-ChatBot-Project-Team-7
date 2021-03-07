@@ -16,66 +16,75 @@ class PreviousInputLogic(LogicAdapter):
         if self.previous_input.text != '':
             return True
         else:
-            self.previous_input = statement  # Current Statement object
+            self.previous_input = statement  # Do not run the first time
             return False
 
     def process(self, input_statement, additional_response_selection_parameters):
         """Doing a really poor job of memory management here but I don't think it's critical for the current scope"""
 
+        if 'order' in input_statement.text.lower():
+            output = Statement ('')
+            output.confidence = 0
+            return output
+
         # These are classes so need to instantiate them before using their compare method
         LevDist = LevenshteinDistance()
-        SynDist = SynsetDistance()
+        # SynDist = SynsetDistance()
 
         # These will store max values found so far as we iterate through our trained conversations
-        # This definitely feels like cheating.
         LevDist_max = 0
-        SynDist_max = 0
+        # SynDist_max = 0
 
+        store_i = 0
+        store_j = 0
         # Iterate through the conversations and entries in each, tracking the best match
-        for conversation in conversations:
-            for i, entry in enumerate(conversation):
-                if (i % 2) == 1:  # only analyze human inputs
+        for i, conversation in enumerate(conversations):
+            for j, entry in enumerate(conversation):
+                if (j % 2) == 1:  # only analyze human inputs
                     continue
 
-                if (i + 3) >= len(conversation):  # make sure enough entries remain in conversation for the logic below
+                if (j + 3) >= len(conversation):  # make sure enough entries remain in conversation for the logic below
                     continue
 
                 statement = Statement(entry)  # must be Statement object for comparisons, not string
 
                 LD = LevDist.compare(self.previous_input, statement)
                 if LD > LevDist_max:
-                    if LevDist.compare(Statement(conversation[i+2]), input_statement) > 0.9:
-                        LD += (1 - LD)/2  # give 50% boost over competition if current statment is a good match in the right position in the same conversation
+                    store_i = i
+                    store_j = j
                     LevDist_max = LD
-                    LD_statement = Statement(conversation[i+3])
+                    LD_statement = Statement(conversation[j+3])
 
-                SD = SynDist.compare(self.previous_input, statement)
-                if SD > SynDist_max:
-                    if SynDist.compare(Statement(conversation[i+2]), input_statement) > 0.9:
-                        SD += (1 - SD)/2  # give 50% boost over competition if current statment is a good match in the right position in the same conversation
-                    SynDist_max = SD
-                    SD_statement = Statement(conversation[i+3])
+                # SD = SynDist.compare(self.previous_input, statement)
+                # if SD > SynDist_max:
+                #     if SynDist.compare(Statement(conversation[i+2]), input_statement) > 0.9:
+                #         SD += (1 - SD)/2  # give boost over competition if current statment is a good match in the right position in the same conversation
+                #     SynDist_max = SD
+                #     SD_statement = Statement(conversation[i+3])
+
+
+        if LevDist.compare(Statement(conversations[store_i][store_j+2]), input_statement) > 0.9:
+            LD = 10  # if current statment is a good match in the right position in the same conversation, it's probably right.
 
         # Having calculated the maximum confidences for each method, determine the winner and output that Statement object
         # Note that output here doesn't mean it'll be the final chosen output of the bot. Bot will compare confidence from
         # this and any other logic adapters and choose the output with the highest confidence.
-        if LevDist_max > SynDist_max:
-            output = LD_statement
-            output.confidence = LevDist_max
+        # if LevDist_max > SynDist_max:
+        output = LD_statement
+        output.confidence = LevDist_max
 
-        elif SynDist_max > LevDist_max:
-            output = SD_statement
-            output.confidence = SynDist_max
+        # elif SynDist_max > LevDist_max:
+        #     output = SD_statement
+        #     output.confidence = SynDist_max
 
-        else:
-            output = Statement('Not quite sure how to respond to that...')
-            output.confidence = 0.1
+        # else:
+        #     output = Statement('Not quite sure how to respond to that...')
+        #     output.confidence = 0.1
         
-        if output.confidence > 0.9:
-            output.confidence = 0.9
-        
+        # print(f'LevDist: {LevDist_max}, {LD_statement}')
+        # print(f'SynDist: {SynDist_max}, {SD_statement}')
         print('PreviousLogicAdapter returning {} with confidence {}'.format(output.text, output.confidence))
-
+        self.previous_input = input_statement
         return output
 
 
