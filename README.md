@@ -2,5 +2,9 @@
 
 ## Team Members (Add Name Here)
 * Karl Gendler -- contributor.
-* Phil Shirts -- contributor.
 * Sajit Jumani -- contributor.
+* Phil Shirts -- contributor.
+
+## Status
+This software is in pre-release and intended for educational purposes only.
+The list of understood inputs is below:
