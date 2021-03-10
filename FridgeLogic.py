@@ -83,7 +83,7 @@ class PreviousInputLogic(LogicAdapter):
         
         # print(f'LevDist: {LevDist_max}, {LD_statement}')
         # print(f'SynDist: {SynDist_max}, {SD_statement}')
-        print('PreviousLogicAdapter returning {} with confidence {}'.format(output.text, output.confidence))
+        # print('PreviousLogicAdapter returning {} with confidence {}'.format(output.text, output.confidence))
         self.previous_input = input_statement
         return output
 

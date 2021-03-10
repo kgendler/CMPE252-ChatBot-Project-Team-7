@@ -6,7 +6,7 @@ from chatterbot.trainers import ListTrainer, ChatterBotCorpusTrainer
 from refrigerator_world_training import conversations, FridgeBot
 
 
-def fridge_api(chatbot_response):
+def order_api(chatbot_response):
     """Looks for a triggering response from the FridgeBot and handles it."""
     if chatbot_response.text == 'createorder':
         p = re.compile(r'(\d+)? ?(gallons?|pounds?)?( of )?.*(milk|bacon|eggs?)')
@@ -78,15 +78,16 @@ def fridge_api(chatbot_response):
             else:
                 item = 'egg(s)'
             reply = Statement(f'Your order of {order.quantity} {item} is scheduled to be delivered in the {order.delivery_time}.')
-        
-    elif chatbot_response.text == 'deleteorder':
-        order = fridge.order
-        if not order:
-            reply = Statement('You have no pending order.')
-        else:
-            item = order.item
-            fridge.order = None
-            reply = Statement(f"I've cancelled your order for {item}.")
+
+    # Future Capability  
+    # elif chatbot_response.text == 'deleteorder':
+    #     order = fridge.order
+    #     if not order:
+    #         reply = Statement('You have no pending order.')
+    #     else:
+    #         item = order.item
+    #         fridge.order = None
+    #         reply = Statement(f"I've cancelled your order for {item}.")
     
     elif chatbot_response.text == 'updatefridge':
         order = fridge.order
@@ -151,29 +152,28 @@ fridge = FridgeBot(
 )       
 
 # Give the bot some rudimentary conversation skills 
-trainer = ChatterBotCorpusTrainer(fridge)
-#trainer.train('chatterbot.corpus.english.conversations')  # commenting this out to avoid unwanted/incorrect replies
+trainer = ChatterBotCorpusTrainer(fridge, show_training_progress=False)
+#trainer.train('chatterbot.corpus.english.conversations')  # Do not use. Avoid unwanted/incorrect replies.
 trainer.train('chatterbot.corpus.english.greetings')
 
 # Train the bot on our set of fridge conversations
-trainer = ListTrainer(fridge)
+trainer = ListTrainer(fridge, show_training_progress=False)
 for conversation in conversations:
     trainer.train(conversation)
 
 # Set initial conditions
 print("FridgeBot: Welcome to FridgeBot! Here's what's in the fridge:")
-print('\t', fridge.milk, 'gallon(s) of non-fat milk')
+print('\t', fridge.milk, 'gallon(s) of milk')
 print('\t', fridge.eggs, 'egg(s)')
 print('\t', fridge.bacon, 'pound(s) of bacon')
 
 # Run the bot (don't forget to cross your fingers)
 print('FridgeBot: How may I be of assistance?')
 user_input = input('User: ')
-while user_input and user_input.lower() != 'exit':  # if user enters blank response, chatbot exits.
+while user_input and user_input.lower() != 'exit':  # if user enters blank response or exit, chatbot exits.
     response = fridge.get_response(user_input)
-    #print(f"response: {type(response)}")
-    response = fridge_api(response)
-    print(f'{response} - confidence: {response.confidence}')
+    response = order_api(response)
+    #print(f'{response} - confidence: {response.confidence}')  # debug
     if response.confidence >= 0.7:
         print(f'FridgeBot: {response}')
     else:

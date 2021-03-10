@@ -39,7 +39,7 @@ conversations = [[
     'Where is the chocolate milk? ',
     'We don’t have chocolate milk, only regular milk.',
     'Where is the regular milk?',
-    'In the refrigerator, on the left side.'  # bot replied with "There should be some in the refrigerator."
+    'There should be some in the refrigerator on the left side.'
 ],
 [
     'Do we have any frozen pizza?',
@@ -59,7 +59,7 @@ conversations = [[
     'Why don’t we have any deviled eggs?',
     'I don’t know.  You can make some yourself if you want them.',
     'I am too lazy to cook right now.',
-    'Then no devilled-eggs for you.'
+    'Then no deviled-eggs for you.'
 ],
 [
     'I am hungry',
@@ -69,7 +69,7 @@ conversations = [[
     'Does the refrigerator light stay on after I close the door?',
     'I don’t know, I have never been inside the refrigerator when the door was closed.',
     'Why not?',
-    'Because it is dangerous. Let us never speak of this again.'  # Bot replies with "Because I have never been inside the refigerator when the door was closed."
+    'Because it is dangerous. Let us never speak of this again.'
 ],
 [
     'What is the status of my order',
@@ -86,10 +86,6 @@ conversations = [[
 [
     "I'd like to place an order",
     'createorder'
-],
-[
-    'Cancel the order',
-    'deleteorder'
 ],
 [
     'Thank you',
@@ -112,12 +108,13 @@ class Order(object):
         self.quantity = quantity
         self.delivery_time = delivery_time
 
+
 class FridgeBot(ChatBot):
     def __init__(self, name, **kwargs):
         super().__init__(name, **kwargs)
         self.order = None
-        self.milk = randrange(1,2)
-        self.eggs = randrange(1,24)
+        self.milk = randrange(1,3)
+        self.eggs = randrange(1,25)
         self.bacon = randrange(1,5)
 
         # self.inputs = []
