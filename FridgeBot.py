@@ -24,16 +24,27 @@ def order_api(chatbot_response):
         units = match.group(2)
         item = match.group(4)
 
+        if not units and 'egg' not in item:
+            units = 'pounds' if 'bacon' in item else 'gallons'
+
         if not quantity:
             user_input = input(f'FridgeBot: How many {units if units else ""}{" of " if units else ""}{item} would you like?\n' \
                                 'User: ')
             p = re.compile(r'(\d+) ?({}s?|{}s?)?'.format(item, units))
             while True:
                 try:
-                    quantity = int(p.match(user_input).groups()[0])
+                    match = p.match(user_input)
+                    if not match:
+                        continue
+                    quantity = int(match.groups()[0])
+                    if quantity < 1:
+                        print('FridgeBot: Invalid input, please enter a positive integer number.')
+                        user_input = input(f'FridgeBot: How many {units if units else ""}{" of " if units else ""}{item} would you like?\n' \
+                                            'User: ')
+                        continue
                     break
                 except TypeError:
-                    print('FridgeBot: Invalid input, please enter an integer number.')
+                    print('FridgeBot: Invalid input, please enter a positive integer number.')
                     user_input = input(f'FridgeBot: How many {units if units else ""}{" of " if units else ""}{item} would you like?\n' \
                                         'User: ')
         else:
