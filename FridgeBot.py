@@ -30,7 +30,7 @@ def order_api(chatbot_response):
             p = re.compile(r'(\d+) ?({}s?|{}s?)?'.format(item, units))
             while True:
                 try:
-                    quantity = int(p.match(user_input).groups()[1])
+                    quantity = int(p.match(user_input).groups()[0])
                     break
                 except TypeError:
                     print('FridgeBot: Invalid input, please enter an integer number.')
