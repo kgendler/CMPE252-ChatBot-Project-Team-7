@@ -16,12 +16,12 @@ This software is in pre-release and intended for educational purposes only.
 5) The contents of the fridge can be eggs, bacon, and milk.
 6) You can interact with FridgeBot by asking what is in the fridge, where in the fridge certain items are located, and schedule an order for more food.
 7) Because FridgeBot is trained on a narrow set of phrases, we recommend using the following:
-7.a) "What is in the fridge?"
-7.b) "Do we have any bacon left?"
-7.c) "Where is the milk?"
-7.d) "Where is the chocolate milk?"
-7.e) "Are you sure?"
-7.f) "Do we have any eggs?"
+  a) "What is in the fridge?"
+  b) "Do we have any bacon left?"
+  c) "Where is the milk?"
+  d) "Where is the chocolate milk?"
+  e) "Are you sure?"
+  f) "Do we have any eggs?"
   g) "Do we have any deviled eggs?"
   h) "Why don't we have deviled eggs?"
   i) "I am too lazy to cook right now"
