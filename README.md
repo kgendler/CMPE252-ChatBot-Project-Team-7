@@ -8,6 +8,9 @@
 ## Status
 This software is in pre-release and intended for educational purposes only.
 
+## Environment
+This repository contains a slightly modified copy of chatterbot v1.0.4. The version of chatterbot included herein must be used to ensure proper functionality.
+
 ## Guidance on how to interact with FridgeBot
 1) Download all 3 files (FridgeBot.py, FridgeLogic.py, and refrigerator_world_training.py)
 2) FridgeBot.py is the main file; run this file. It will call upon the other 2 files for training and logic adapters
