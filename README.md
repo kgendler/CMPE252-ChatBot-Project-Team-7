@@ -18,25 +18,25 @@ This software is in pre-release and intended for educational purposes only.
 7) Because FridgeBot is trained on a narrow set of phrases, we recommend using the following:<br/>
   a) "What is in the fridge?"<br/>
   b) "Do we have any bacon left?"<br/>
-  c) "Where is the milk?"
-  d) "Where is the chocolate milk?"
-  e) "Are you sure?"
-  f) "Do we have any eggs?"
-  g) "Do we have any deviled eggs?"
-  h) "Why don't we have deviled eggs?"
-  i) "I am too lazy to cook right now"
-  j) "I would like to place an order"
-  k) "bacon"
-  l) "5"
-  m) "evening"
-  n) "I would like to schedule an order"
-  o) "milk"
-  p) "2 gallons"
-  q) "morning"
-  r) "What is the status of my order?"
-  s) "reschdule my order"
-  t) "afternoon"
-  u) "my order has arrived"
-  v) "what's in the fridge?"
-  w) "thank you"
-  x) "exit"
+  c) "Where is the milk?"<br/>
+  d) "Where is the chocolate milk?"<br/>
+  e) "Are you sure?"<br/>
+  f) "Do we have any eggs?"<br/>
+  g) "Do we have any deviled eggs?"<br/>
+  h) "Why don't we have deviled eggs?"<br/>
+  i) "I am too lazy to cook right now"<br/>
+  j) "I would like to place an order"<br/>
+  k) "bacon"<br/>
+  l) "5"<br/>
+  m) "evening"<br/>
+  n) "I would like to schedule an order"<br/>
+  o) "milk"<br/>
+  p) "2 gallons"<br/>
+  q) "morning"<br/>
+  r) "What is the status of my order?"<br/>
+  s) "reschdule my order"<br/>
+  t) "afternoon"<br/>
+  u) "my order has arrived"<br/>
+  v) "what's in the fridge?"<br/>
+  w) "thank you"<br/>
+  x) "exit"<br/>
