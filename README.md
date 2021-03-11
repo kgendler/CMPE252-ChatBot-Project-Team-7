@@ -43,3 +43,4 @@ This repository contains a slightly modified copy of chatterbot v1.0.4. The vers
   v) "what's in the fridge?"<br/>
   w) "thank you"<br/>
   x) "exit"<br/>
+8) NOTE: FridgeBot seems to behave best when there is no training beyond that provided programmatically within the code. If exitting FridgeBot and starting over, delete any sql files that FridgeBot creates in its directory prior to running FridgeBot again.
